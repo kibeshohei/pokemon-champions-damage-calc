@@ -70,3 +70,4 @@ Pokemon Champions Damage Calc の UI 設計ルールです。
 4. 守るべき制約は `design/contracts/rules.json` を参照する
 5. 計算機 UI を触る場合は `design/contracts/components/calculator-app.contract.json` を読む
 6. デザイン関連ファイルを変更したら `npm run design:check` と `npm run design:drift` を実行する
+7. 実装時のコンポーネント分割方針と命名規約は `.claude/CLAUDE.md` を参照する

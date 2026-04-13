@@ -3,6 +3,7 @@
 ## UI/UX について
 
 UI/UX に関しては DESIGN.md を参照してください。
+GUI の機能要件、優先順位、スコープ判断は `docs/gui-requirements.md` を参照してください。
 
 ## 概要
 
@@ -45,6 +46,8 @@ UI/UX に関しては DESIGN.md を参照してください。
 - UI の責務は `components/`、ルーティングの責務は `app/` に寄せます。
 - 計算ロジックを React コンポーネントに直接書き込まないようにします。
 - 新しいゲーム要素を追加するときは、まずドメイン層を拡張し、その後 UI をつなぎます。
+- GUI の機能追加や変更を行う前に `docs/gui-requirements.md` を確認し、対象が `Must` / `Should` / `Could` のどこに属するかを意識します。
+- 新しい入力項目、結果項目、画面要素、スコープ変更を行う場合は、先に `docs/gui-requirements.md` を更新してから実装します。
 - `components/calculator-app.tsx` は画面全体の状態管理と取得処理を担当し、表示部分は `components/calculator/` 配下の小さなコンポーネントへ分割します。
 - このリポジトリで新しく追加するファイル名は、フレームワークや慣習上の固定名を除いて camelCase を使います。
 - UI を大きくする場合は、表示責務ごとに `PokemonPanel`、`MovePanel`、`ResultPanel` のような単位で分割してから見た目を調整します。

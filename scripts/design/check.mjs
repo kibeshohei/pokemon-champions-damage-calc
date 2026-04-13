@@ -81,10 +81,10 @@ async function main() {
       read("design/authority.md")
     ]);
 
-  ensureMarkdownSection(designMarkdown, "## Design Principles");
-  ensureMarkdownSection(designMarkdown, "## Quick Reference");
-  ensureMarkdownSection(designMarkdown, "## Forbidden Patterns");
-  ensureMarkdownSection(designMarkdown, "## AI Workflow");
+  ensureMarkdownSection(designMarkdown, "## 設計原則");
+  ensureMarkdownSection(designMarkdown, "## クイックリファレンス");
+  ensureMarkdownSection(designMarkdown, "## 禁止パターン");
+  ensureMarkdownSection(designMarkdown, "## AI 向けの作業手順");
 
   if (!authorityText.includes("contracts") || !authorityText.includes("app/globals.css")) {
     fail("design/authority.md does not explain the design source of truth");

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "NO_BLUE_PRIMARY",
+      "severity": "error",
+      "detector": "style-guideline",
+      "pattern": "blue or purple primary accents",
+      "alternative": "use color.accent and color.accentStrong"
+    },
+    {
+      "id": "NO_HARD_BLACK",
+      "severity": "error",
+      "detector": "style-guideline",
+      "pattern": "pure black text on UI surfaces",
+      "alternative": "use color.text"
+    },
+    {
+      "id": "NO_HEAVY_SHADOW",
+      "severity": "error",
+      "detector": "style-guideline",
+      "pattern": "shadows visually stronger than shadow.panel",
+      "alternative": "reuse shadow.panel"
+    },
+    {
+      "id": "NO_NEON_GRADIENT",
+      "severity": "warn",
+      "detector": "style-guideline",
+      "pattern": "neon or saturated multi-color gradients",
+      "alternative": "keep warm neutral background accents"
+    },
+    {
+      "id": "NO_TIGHT_GRID",
+      "severity": "warn",
+      "detector": "layout-guideline",
+      "pattern": "multi-column dense control layouts on mobile",
+      "alternative": "collapse to a single column under 920px"
+    }
+  ]
+}

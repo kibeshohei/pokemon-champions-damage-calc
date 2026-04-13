@@ -1,0 +1,44 @@
+{
+  "id": "calculator-app",
+  "version": 1,
+  "description": "Main calculator screen for attacker, defender, move settings, and damage result.",
+  "selectors": {
+    "pageShell": ".page-shell",
+    "hero": ".hero",
+    "sidePanel": ".panel",
+    "movePanel": ".move-panel",
+    "resultPanel": ".result-panel",
+    "primaryButton": ".primary-button",
+    "textInput": ".text-input",
+    "numberInput": ".number-input",
+    "selectInput": ".select-input",
+    "summaryCard": ".summary-card"
+  },
+  "tokenRefs": [
+    "color.bg",
+    "color.panel",
+    "color.panelStrong",
+    "color.text",
+    "color.muted",
+    "color.line",
+    "color.accent",
+    "color.accentStrong",
+    "color.accentSoft",
+    "color.danger",
+    "shadow.panel",
+    "radius.panel",
+    "font.display",
+    "font.body"
+  ],
+  "ruleRefs": [
+    "NO_BLUE_PRIMARY",
+    "NO_HARD_BLACK",
+    "NO_HEAVY_SHADOW",
+    "NO_NEON_GRADIENT",
+    "NO_TIGHT_GRID"
+  ],
+  "responsiveBehavior": {
+    "breakpoint": "920px",
+    "behavior": "grid-layout, move-grid, summary-grid, and sp-grid collapse to one column"
+  }
+}

@@ -1,130 +1,72 @@
-# ポケモンチャンピオンズ ダメージ計算機
+# DESIGN.md
 
-## ビジュアルテーマと雰囲気
+Pokemon Champions Damage Calc の UI 設計ルールです。
+このファイルは AI と人間が最初に読む UI の入口です。実装前にここを読み、厳密な値は `design/contracts/` を参照します。
 
-インターフェースは鋭く分析的であり、ダメージ計算の明確さと精度を優先する。デザイン哲学はデータ最重要で実用的だ。ポケモン IP のゲーム要素を取り入れつつ、競技バトルですぐに活用することを想定する。「戦術計算機」と「モダンなダッシュボード」を合わせる——清潔で集中できるUI。
+## Design Principles
 
-## カラーパレットと役割
+1. Content first
+   ダメージ計算とポケモン情報が主役です。過剰な装飾や演出は避けます。
+2. Warm technical surface
+   研究ノートや対戦メモのような、暖色寄りで落ち着いたトーンを維持します。
+3. One accent family
+   強調色はオレンジ系アクセント 1 系統に寄せます。補助色を増やしません。
+4. Cards over chrome
+   UI はカードと入力面で整理し、強い境界線や派手な影を増やしません。
+5. Comfortable density
+   情報量は多くても詰め込みすぎません。余白と行間で読ませます。
+6. Clear state communication
+   エラー、上限超過、読み込みなどの状態は色と文言で明確に伝えます。
 
-| 役割           | 色      | 用途                                   |
-| -------------- | ------- | -------------------------------------- |
-| 背景           | #0f0f12 | ページの背景（深いチャコールブラック） |
-| 表面           | #1a1a20 | カードやインプットの背景               |
-| 境界線         | #2a2a35 | 区切りやボーダー                       |
-| テキスト主要   | #f0f0f5 | 目立つテキスト                         |
-| テキスト副     | #8a8a9a | ラベルや説明文                         |
-| アクセント主要 | #3b82f6 | アクションボタン、強調（薄い青色）     |
-| アクセント副   | #22c55e | 成功系、ダメージ計算結果               |
-| 重要           | #ef4444 | 効果がばつぐんの表示                   |
-| 非効率         | #a78bfa | 効果が今ひとつの表示                   |
+## Quick Reference
 
-### タイプカラー
+### Layout
 
-| タイプ     | 色      |
-| ---------- | ------- |
-| ほのお     | #ef4444 |
-| みず       | #3b82f6 |
-| でんき     | #facc15 |
-| くさ       | #22c55e |
-| こおり     | #67e8f9 |
-| かくびょう | #a78bfa |
-| あく       | #1e1e2e |
-| はがね     | #94a3b8 |
-| ひこう     | #60a5fa |
-| かくとう   | #f97316 |
-| どく       | #a855f7 |
-| じめん     | #d97706 |
-| エスパー   | #ec4899 |
-| いわ       | #78716c |
-| むしか     | #84cc16 |
-| ノーマル   | #9ca3af |
-| りゅう     | #0ea5e9 |
-| フェアリー | #f472b6 |
-| むし       | #84cc16 |
+- Page shell: `width: min(1180px, calc(100vw - 32px))`
+- Main grid: 2 columns on desktop, 1 column on narrow screens
+- Panel spacing: `22px`
+- Section gap: `20px` to `24px`
 
-## タイポグラフィ
+### Surface Tokens
 
-- **フォントファミリー**:
-  - 日本語: 「Zen Kaku Gothic New」
-  - 数字・ラテン: 「Inter」またはシステムフォント
-- **見出し（H1）**: 太字（700）、1.5rem、文字間隔詰める（-0.02em）
-- **セクション見出し（H2）**: 中太字（600）、1.125rem
-- **本文**: 通常（400）、0.875rem、行間ゆとり（1.6）
-- **ラベル**: 中間（500）、0.75rem、大文字でカテゴリ表示
-- **ステータス数値**: 等幅フォント、桁揃え
+| Token | CSS Variable | Value | Usage |
+|------|------|------|------|
+| `color.bg` | `--bg` | `#f7f1e3` | base page tone |
+| `color.panel` | `--panel` | `rgba(255, 252, 246, 0.88)` | card surface |
+| `color.panelStrong` | `--panel-strong` | `#fffdf8` | input surface |
+| `color.text` | `--text` | `#1b140f` | primary text |
+| `color.muted` | `--muted` | `#65584c` | helper text |
+| `color.line` | `--line` | `rgba(91, 74, 57, 0.18)` | border |
+| `color.accent` | `--accent` | `#ca5c2d` | primary action |
+| `color.accentStrong` | `--accent-strong` | `#9c3f18` | accent depth |
+| `color.accentSoft` | `--accent-soft` | `#f6d5bf` | chips |
+| `color.danger` | `--danger` | `#a42828` | error state |
+| `shadow.panel` | `--shadow` | `0 18px 45px rgba(72, 44, 20, 0.12)` | panels |
+| `radius.panel` | `--radius` | `24px` | panels |
 
-## コンポーネントスタイリング
+### Component Rules
 
-### ボタン
+- Hero: one concise headline, one supporting paragraph
+- Panel: translucent warm surface, soft border, one heading block
+- Primary button: accent gradient, strong text weight, no outline-only variant by default
+- Inputs: strong readability, no transparent inputs, no dark theme controls
+- Result summary: compact metric cards first, detailed note second
 
-- 角丸: 半径8px
-- デフォルト: 塗りつぶし
-- ホバー時: アクセントカラーの発光（20%不透明度のbox-shadow）
-- 主要ボタン: 青色塗りつぶし + 白文字
-- セカンダリーボタン: 透明 + ボーダー
+## Forbidden Patterns
 
-### カード
+| Rule ID | NG | Alternative | Why |
+|------|------|------|------|
+| `NO_BLUE_PRIMARY` | blue or purple primary accents | use `color.accent` family | visual language drifts from product tone |
+| `NO_HARD_BLACK` | pure `#000` text on surfaces | use `color.text` | too harsh for the warm palette |
+| `NO_HEAVY_SHADOW` | `shadow-lg` equivalent or stronger | use `shadow.panel` | depth becomes noisy |
+| `NO_NEON_GRADIENT` | saturated multi-color gradients | keep the existing warm neutral background | breaks product identity |
+| `NO_TIGHT_GRID` | 3+ dense control rows on mobile | collapse to single column | hurts scanability |
 
-- 角丸: 半径12px
-- デフォルト: フラット（影なし）
-- ボーダー: 1px #2a2a35
-- ホバー時: 浮き上がり（さりげない影）
+## AI Workflow
 
-### インプット・SELECT
-
-- 背景: #1a1a20
-- 角丸: 6px
-- フォーカス時: アクセントブルーのフォーカスリング
-
-### タイプバッジ
-
-- 形状: ピル形状（完全丸型）
-- 背景: タイプカラー20%不透明度
-- テキスト: タイプカラー
-
-### ダメージ結果表示
-
-- サイズ: 大型・太字
-- 色分け:
-  - 効果が超ばつぐん（4倍）: 緑（#22c55e）
-  - 効果がばつぐん（2倍）: 赤（#ef4444）
-  - 効果が今ひとつ（0.5倍）: 紫（#a78bfa）
-  - 通常: 白（#f0f0f5）
-
-### ステータス表示
-
-- コンパクトに
-- 数字は等幅フォント
-- 右寄せ
-- ラベルはその上
-
-## レイアウト原則
-
-- 最大コンテンツ幅: 960px
-- セクション間余白: 1.5rem
-- コンポーネント間隔: 1rem
-- タイプバッジ: 横並びまたはラップ、0.5rem間隔
-- レスポンシブ:
-  - モバイル（640px未満）: 単一カラム
-  - タブレット/デスクトップ: 2カラム
-- 優先度: 計算機インプット優位、結果を下方または右に表示
-
-## コンポーネント使用ルール
-
-### 守ること
-
-- グラデーション背景は使用禁止——表面は無地のフラットにする
-- ポケモンのイラストやスピリッツはユーザーが明示的に要求しない限り追加しない
-- 正確な数字と明確なデータ階層を優先
-- タイプバッジを使用してタイプ相性を表示
-- 戦でコンパクトに
-
-### 避けること
-
-- 派手なアニメーション（実戦では使わない）
-- 多すぎる装飾
-- 暗いテーマの場合の視認性の低下
-
-## 参考リソース
-
-- Google Stitch DESIGN.md フォーマット: https://stitch.withgoogle.com/docs/design-md/format
+1. Read this file first.
+2. Read `design/authority.md` to understand the source of truth.
+3. Read `design/contracts/tokens.json` for exact values.
+4. Read `design/contracts/rules.json` for non-negotiable constraints.
+5. If updating the calculator UI, read `design/contracts/components/calculator-app.contract.json`.
+6. After changing design-related files, run `npm run design:check` and `npm run design:drift`.

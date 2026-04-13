@@ -1,5 +1,9 @@
 # プロジェクトメモ
 
+## UI/UX について
+
+UI/UX に関しては DESIGN.md を参照してください。
+
 ## 概要
 
 - このリポジトリは Pokemon Champions 向けのダメージ計算ツールです。
@@ -44,6 +48,8 @@
 
 ## 確認項目
 
+- UI ルールやデザイン関連の変更後は `npm run design:check` を実行します。
+- `DESIGN.md` と contracts を更新した場合は `npm run design:drift` も実行します。
 - まとまった変更の後は `npm run build` を実行します。
 - キャッシュ生成ロジックを触った場合は `npm run refresh:pokeapi-cache` も確認します。
 

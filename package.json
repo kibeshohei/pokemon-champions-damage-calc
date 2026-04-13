@@ -7,6 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "design:check": "node scripts/design/check.mjs",
+    "design:drift": "node scripts/design/drift.mjs",
     "refresh:pokeapi-cache": "node --import tsx src/scripts/refresh-pokeapi-cache.ts"
   },
   "dependencies": {

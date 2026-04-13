@@ -46,6 +46,13 @@ npm run dev
 npm run build
 ```
 
+### AI Design Checks
+
+```bash
+npm run design:check
+npm run design:drift
+```
+
 ### Refresh Local PokeAPI Cache
 
 ```bash
@@ -73,6 +80,15 @@ src/
   lib/pokeapiCache.ts      # ローカルキャッシュ
   lib/pokemonNameResolver.ts
   scripts/refresh-pokeapi-cache.ts
+design/
+  authority.md             # デザインの source of truth
+  contracts/
+    tokens.json            # UIトークンの正本
+    rules.json             # 禁止パターンの正本
+    components/            # コンポーネント契約
+scripts/design/
+  check.mjs                # DESIGN.md / contracts / CSS の整合性検証
+  drift.mjs                # DESIGN.md と contracts のドリフト検出
 ```
 
 ## Notes
@@ -81,3 +97,8 @@ src/
 - 本番での `.cache` 永続化は前提にしていません。
 - Vercel への配備を想定しています。
 
+## AI-Ready Design Workflow
+
+- UI の原則は `DESIGN.md` を先に読む
+- 厳密な値と制約は `design/contracts/` を参照する
+- デザイン関連を変更したら `npm run design:check` と `npm run design:drift` を実行する
